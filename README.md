@@ -1,12 +1,13 @@
 ## Oberon IDE
 
-This is the XText-based IDE implementation of our Oberon language. It integrates the XText approach with ab existing implementation of the Oberon language. Currently, this implementation exports a C program from an Oberon module---using our existing implementation of Oberon.
+This is the XText-based IDE implementation of the Oberon language. It integrates the XText approach with an existing implementation of the Oberon language (https://github.com/UnBCIC-TP2/Oberon-Scala). Currently, this implementation exports a C program from an Oberon module---using our existing implementation of Oberon.
 
 Future work:
 
-   * integrate the type checker feature
-   * integrate the interpreter feature
-   * export the C code for a specific output directory
+   * [ ] integrate the type checker feature (from a context menu)
+   * [ ] integrate the interpreter feature (from a context menu)
+   * [ ] export the C code for a specific output directory (using the auto-save mechanism)
+   * [ ] add the parser test cases previous implemented by some students
 
 ### Requirements
 
