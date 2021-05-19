@@ -1,0 +1,108 @@
+grammar br.unb.cic.obron.ide.Oberon with org.eclipse.xtext.common.Terminals
+
+generate oberon "http://www.unb.br/cic/obron/ide/Oberon"
+
+
+Oberon:
+  'MODULE' name = ID ';' declaration = Declarations block=Block ? 'END' ID '.';
+
+Block:
+	{Block} 
+	'BEGIN' (stmt += Statement)*  'END';
+	
+Declarations: 
+	{Declararion}
+	('TYPE' types += UserTypeDeclaration+) ? 
+	('CONST' consts += Constant+) ? 
+	('VAR' vars += VarDeclaration+) ? 
+	(proc += Procedure)*;
+
+UserTypeDeclaration: 
+ 	nameType = ID '=' ('ARRAY' length = INT 'OF' vartype = OberonType)     
+  | nameType = ID '=' ('RECORD' (vars += VarDeclaration)+ 'END');
+  
+Constant: 
+	constName = ID '=' exp = Expression ';';
+  	
+VarDeclaration: 
+	(vars += ID (',' vars += ID)*) ':' varType = OberonType ';';
+	
+	
+Procedure :
+  'PROCEDURE' name = ID '(' formals = Formals?  ')' (':' procedureType = OberonType)? ';'
+    decl = Declarations    
+    block = Block
+   ID
+  ;
+  
+Formals
+ : arg = FormalArg (',' args += FormalArg)*
+ ;
+ 
+FormalArg 
+ : (args += ID (',' args += ID)*) ':' argType = OberonType 
+ ; // TODO: we should also support VarBased formal arguments.
+ 
+Arguments
+ : exp = Expression (',' exps += Expression)*
+ ;
+
+Expression
+ : left = TExpression (opr += Operation  right += Expression)*                                                                      
+ ;
+ 
+Operation
+ : OperationRelacional = ('=' | '#' | '<' | '<=' | '>' | '>=')
+ | OperationAritmetic = ('*' | '/' | '+' | '-')
+ | OperationLogic = ('&&' | '||')
+ ;
+ 
+ TExpression returns Expression
+ : '(' exp = Expression ')'                                                                     
+ | intvalue = IntValue                                                                               
+ | boolvalue = BoolValue
+ | name = ID ('(' args += Arguments? ')')? ('.' atribs += ID)* ('[' index += Expression ']')*                      
+ ;
+ 
+Statement
+ : stmt = TStatement (';' stmts += Statement)*
+ ;
+ 
+TStatement returns Statement
+ : des = Designator (':=' exp = Expression)?                                                                                                                                                                    
+ | 'readInt'  '(' var = ID ')'                                                                                               
+ | 'write' '(' exp = Expression ')'                                                                                                                                     
+ | 'IF' cond = Expression 'THEN' thenStmt = Statement ('ELSIF' elsifs += elseIfStmt)* ('ELSE' elseStmt = Statement)? 'END'    
+ | 'WHILE' cond = Expression 'DO' stmt = Statement 'END'                                                                      
+ | 'REPEAT' stmt = Statement 'UNTIL' cond = Expression                                                                        
+ | 'FOR' init = Statement 'TO' condition = Expression 'DO' stmt = Statement 'END'                                             
+ | 'FOR' var = ID 'IN' min = Expression '..' max = Expression 'DO' stmt = Statement 'END' 
+ | 'LOOP' stmt=Statement 'END'                                    
+ | 'RETURN' exp = Expression                                                                                                  
+ | 'CASE' exp = Expression 'OF' case = caseAlternative ('|' cases += caseAlternative)* ('ELSE' elseStmt= Statement)? 'END' 
+ | exit = 'EXIT' 
+ ;
+
+Designator
+ : designator = TDesignator ('[' indexes += Expression ']'  |  '.' atribs += ID )*                                                                                        
+ ;
+ 
+TDesignator returns Designator
+ : name = ID ('(' args += Arguments? ')')?
+ ;
+ 
+caseAlternative
+ : exp = Expression ('..' max = Expression)? ':' stmt = Statement  
+ ; 
+
+elseIfStmt : cond = Expression 'THEN' stmt = Statement ;
+  
+OberonType: 
+	{Integer} 'INTEGER' | {Boolean} 'BOOLEAN' | name=ID | 'ARRAY' numElement=INT 'OF' nameType=OberonType;
+	
+IntValue : INT ;
+
+BoolValue: TRUE | FALSE ;
+ 
+TRUE  : 'True' ;
+FALSE : 'False'  ; 

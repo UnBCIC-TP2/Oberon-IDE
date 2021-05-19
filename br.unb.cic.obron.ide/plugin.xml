@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+	<extension point="org.eclipse.emf.ecore.generated_package">
+		<package
+			uri = "http://www.unb.br/cic/obron/ide/Oberon"
+			class = "br.unb.cic.obron.ide.oberon.OberonPackage"
+			genModel = "model/generated/Oberon.genmodel" />
+	</extension>
+</plugin>
