@@ -10,7 +10,7 @@ Future work:
 
 ### Requirements
 
-This project was successfully build with:
+This project was successfully built with:
 
 
 (a) Java Development Kit
