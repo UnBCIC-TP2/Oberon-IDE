@@ -48,10 +48,15 @@ public class OberonGeneratorTest {
     _builder.newLine();
     _builder.append("  ");
     _builder.newLine();
+    _builder.append("VAR ");
+    _builder.newLine();
+    _builder.append("  ");
+    _builder.append("z : INTEGER;  ");
+    _builder.newLine();
     _builder.append("BEGIN");
     _builder.newLine();
     _builder.append("  ");
-    _builder.append("x := x + y ");
+    _builder.append("z := x + y ");
     _builder.newLine();
     _builder.append("END");
     _builder.newLine();

@@ -53,15 +53,13 @@ public class OberonGenerator extends AbstractGenerator {
   }
   
   /**
-   * Executes the type checker.
+   * Executes the type checker on a Oberon module.
+   * 
+   * @arg content The string content of an Oberon module.
    */
   public List<Tuple2<Statement, String>> typeChecker(final String content) {
-    List<Tuple2<Statement, String>> _xblockexpression = null;
-    {
-      final OberonModule module = ScalaParser.parse(content);
-      final TypeChecker tc = new TypeChecker();
-      _xblockexpression = tc.visit(module);
-    }
-    return _xblockexpression;
+    final OberonModule module = ScalaParser.parse(content);
+    final TypeChecker tc = new TypeChecker();
+    return tc.visit(module);
   }
 }

@@ -8,9 +8,15 @@ import org.eclipse.swt.widgets.Shell
 import org.eclipse.swt.widgets.Display
 import org.eclipse.swt.widgets.MessageBox
 import org.eclipse.swt.SWT
+//import com.google.inject.Inject
+//import org.eclipse.xtext.generator.IGenerator
 
 class InterpreterHandler extends AbstractHandler implements IHandler {
 	
+	
+//	@Inject
+//    IGenerator generator;
+//	
 	override execute(ExecutionEvent event) throws ExecutionException {
 		val Shell shell = Display.getDefault().getActiveShell();
 		val MessageBox dialog = new MessageBox(shell, SWT.ICON_QUESTION);

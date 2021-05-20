@@ -36,17 +36,22 @@ class OberonGenerator extends AbstractGenerator {
 			val module = ScalaParser.parse(content)
 			val codeGenerator = new PaigesBasedGenerator(3)
 			
+			//TODO: output the generated code to a file.
+			
 			println(codeGenerator.generateCode(module))
 		}
 	}
 	
 	
 	/**
-	 * Executes the type checker.   
+	 * Executes the type checker on a Oberon module. 
+	 * 
+	 * @arg content The string content of an Oberon module.   
 	 */
 	def List<Tuple2<Statement, String>> typeChecker(String content) {
 		val module = ScalaParser.parse(content)
 		val tc = new TypeChecker() 
-		tc.visit(module)
+		
+		return tc.visit(module)
 	}
 }

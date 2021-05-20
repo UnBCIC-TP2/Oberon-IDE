@@ -38,8 +38,10 @@ class OberonGeneratorTest {
 			CONST
 			  x = 200;
 			  
+			VAR 
+			  z : INTEGER;  
 			BEGIN
-			  x := x + y 
+			  z := x + y 
 			END
 			
 			END SimpleModule.

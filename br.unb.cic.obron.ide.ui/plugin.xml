@@ -57,6 +57,7 @@
            class="br.unb.cic.obron.ide.ui.OberonExecutableExtensionFactory:br.unb.cic.obron.ide.ui.handler.InterpreterHandler"
            commandId="br.unb.cic.obron.ide.ui.handler.InterpreterHandler">
      	</handler>
+     	<!-- add new handlers here--> 
 	</extension>
 	<extension point="org.eclipse.core.expressions.definitions">
 		<definition id="br.unb.cic.obron.ide.Oberon.Editor.opened">
@@ -169,6 +170,7 @@
                </visibleWhen>
         	</command>
     	</menuContribution>
+    	<!-- new menu options here --> 
 		<menuContribution
 			locationURI="popup:#TextEditorContext?after=group.edit">
 			<command
