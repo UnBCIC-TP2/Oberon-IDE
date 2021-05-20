@@ -4,8 +4,10 @@
 package br.unb.cic.obron.ide.generator;
 
 import br.unb.cic.oberon.ast.OberonModule;
+import br.unb.cic.oberon.ast.Statement;
 import br.unb.cic.oberon.codegen.PaigesBasedGenerator;
 import br.unb.cic.oberon.parser.ScalaParser;
+import br.unb.cic.oberon.tc.TypeChecker;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import org.eclipse.core.resources.IWorkspaceRoot;
@@ -17,6 +19,8 @@ import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Exceptions;
 import org.eclipse.xtext.xbase.lib.InputOutput;
+import scala.Tuple2;
+import scala.collection.immutable.List;
 
 /**
  * Generates code from your model files on save.
@@ -25,6 +29,9 @@ import org.eclipse.xtext.xbase.lib.InputOutput;
  */
 @SuppressWarnings("all")
 public class OberonGenerator extends AbstractGenerator {
+  /**
+   * Generates the C code from an Oberon module.
+   */
   @Override
   public void doGenerate(final Resource resource, final IFileSystemAccess2 fsa, final IGeneratorContext context) {
     try {
@@ -43,5 +50,18 @@ public class OberonGenerator extends AbstractGenerator {
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
     }
+  }
+  
+  /**
+   * Executes the type checker.
+   */
+  public List<Tuple2<Statement, String>> typeChecker(final String content) {
+    List<Tuple2<Statement, String>> _xblockexpression = null;
+    {
+      final OberonModule module = ScalaParser.parse(content);
+      final TypeChecker tc = new TypeChecker();
+      _xblockexpression = tc.visit(module);
+    }
+    return _xblockexpression;
   }
 }

@@ -21,7 +21,12 @@ class OberonParsingTest {
 	@Test
 	def void loadModel() {
 		val result = parseHelper.parse('''
-			Hello Xtext!
+			MODULE SimpleModule;
+			
+			CONST
+			  x = 200;
+			
+			END SimpleModule.
 		''')
 		Assert.assertNotNull(result)
 		val errors = result.eResource.errors

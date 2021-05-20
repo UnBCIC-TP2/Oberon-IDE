@@ -13,6 +13,10 @@ import java.nio.file.Paths
 import java.nio.file.Files
 import br.unb.cic.oberon.parser.ScalaParser
 import br.unb.cic.oberon.codegen.PaigesBasedGenerator
+import br.unb.cic.oberon.tc.TypeChecker
+import scala.collection.immutable.List
+import scala.Tuple2
+import br.unb.cic.oberon.ast.Statement
 
 /**
  * Generates code from your model files on save.
@@ -20,7 +24,10 @@ import br.unb.cic.oberon.codegen.PaigesBasedGenerator
  * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
  */
 class OberonGenerator extends AbstractGenerator {
-
+	
+   /**
+ 	* Generates the C code from an Oberon module.  
+ 	*/
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		if(resource.URI.isPlatform) {
 			val file = ResourcesPlugin.workspace.root.getFile(new Path(resource.URI.toPlatformString(true))).rawLocation.toOSString;
@@ -31,5 +38,15 @@ class OberonGenerator extends AbstractGenerator {
 			
 			println(codeGenerator.generateCode(module))
 		}
+	}
+	
+	
+	/**
+	 * Executes the type checker.   
+	 */
+	def List<Tuple2<Statement, String>> typeChecker(String content) {
+		val module = ScalaParser.parse(content)
+		val tc = new TypeChecker() 
+		tc.visit(module)
 	}
 }

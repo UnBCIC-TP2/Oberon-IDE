@@ -28,7 +28,16 @@ public class OberonParsingTest {
   public void loadModel() {
     try {
       StringConcatenation _builder = new StringConcatenation();
-      _builder.append("Hello Xtext!");
+      _builder.append("MODULE SimpleModule;");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("CONST");
+      _builder.newLine();
+      _builder.append("  ");
+      _builder.append("x = 200;");
+      _builder.newLine();
+      _builder.newLine();
+      _builder.append("END SimpleModule.");
       _builder.newLine();
       final Oberon result = this.parseHelper.parse(_builder);
       Assert.assertNotNull(result);

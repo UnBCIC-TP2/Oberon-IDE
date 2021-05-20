@@ -52,11 +52,6 @@
 				</and>
 			</activeWhen>
 		</handler>
-		<!-- interpreter handler -->
-		<handler
-           class="br.unb.cic.obron.ide.ui.OberonExecutableExtensionFactory:br.unb.cic.obron.ide.ui.handler.InterpreterHandler"
-           commandId="br.unb.cic.obron.ide.ui.handler.InterpreterHandler">
-     	</handler>
 	</extension>
 	<extension point="org.eclipse.core.expressions.definitions">
 		<definition id="br.unb.cic.obron.ide.Oberon.Editor.opened">
@@ -129,10 +124,6 @@
 			id="br.unb.cic.obron.ide.Oberon.validate"
 			name="Validate">
 		</command>
-		<!-- interpreter command --> 
-		<command name="Interpret Code"
-              id="br.unb.cic.obron.ide.ui.handler.InterpreterHandler">
-        </command>
 		<!-- copy qualified name -->
 		<command
 			id="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
@@ -148,27 +139,6 @@
 		</command>
 	</extension>
 	<extension point="org.eclipse.ui.menus">
-	    <!-- interpreter menu --> 
-	    <menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
-	        <command  commandId="br.unb.cic.obron.ide.ui.handler.InterpreterHandler"
-	            style="push">
-	            <visibleWhen checkEnabled="false">
-	            	<iterate>
-	       				<adapt type="org.eclipse.core.resources.IResource">
-	          				<test property="org.eclipse.core.resources.name" value="*.oberon"/>
-	       				</adapt>
-	    			</iterate>
-	            </visibleWhen>
-	        </command>
-    	</menuContribution>
-    	<menuContribution locationURI="popup:#TextEditorContext?after=additions">
-        	<command commandId="br.unb.cic.obron.ide.ui.handler.InterpreterHandler"  style="push">
-            	<visibleWhen checkEnabled="false">
-                   <reference definitionId="br.unb.cic.obron.ide.Oberon.Editor.opened">
-                   </reference>
-               </visibleWhen>
-        	</command>
-    	</menuContribution>
 		<menuContribution
 			locationURI="popup:#TextEditorContext?after=group.edit">
 			<command
