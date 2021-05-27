@@ -1,0 +1,16 @@
+  
+MODULE SimpleModule;
+
+TYPE
+    TDAY = RECORD
+        day: BOOLEAN;
+    END
+    
+VAR
+    d1 : TDAY;
+
+BEGIN
+    d1.day := 5
+END
+
+END SimpleModule.

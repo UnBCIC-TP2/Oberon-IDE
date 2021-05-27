@@ -1,0 +1,14 @@
+MODULE SimpleModule;
+
+VAR
+  y : INTEGER;
+
+BEGIN
+
+  y := False;
+
+  write(y)
+
+END
+
+END SimpleModule.

@@ -1,0 +1,15 @@
+MODULE SimpleModule;
+
+TYPE 
+   TA = ARRAY 10 OF INTEGER
+
+VAR
+  x: INTEGER;
+  A: TA;
+
+BEGIN
+    x := A[0];
+    write(x)
+END
+
+END SimpleModule.

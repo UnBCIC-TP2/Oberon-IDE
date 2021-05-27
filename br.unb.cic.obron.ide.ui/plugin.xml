@@ -57,6 +57,11 @@
            class="br.unb.cic.obron.ide.ui.OberonExecutableExtensionFactory:br.unb.cic.obron.ide.ui.handler.InterpreterHandler"
            commandId="br.unb.cic.obron.ide.ui.handler.InterpreterHandler">
      	</handler>
+     	<!-- verificador de tipos -->
+     	<handler
+           class="br.unb.cic.obron.ide.ui.OberonExecutableExtensionFactory:br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler"
+           commandId="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler">
+     	</handler>
      	<!-- add new handlers here--> 
 	</extension>
 	<extension point="org.eclipse.core.expressions.definitions">
@@ -134,6 +139,11 @@
 		<command name="Interpret Code"
               id="br.unb.cic.obron.ide.ui.handler.InterpreterHandler">
         </command>
+        
+        <!-- verificador de tipos -->
+        <command name="Type Checker"
+              id="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler">
+        </command>
 		<!-- copy qualified name -->
 		<command
 			id="org.eclipse.xtext.ui.editor.copyqualifiedname.EditorCopyQualifiedName"
@@ -164,6 +174,28 @@
     	</menuContribution>
     	<menuContribution locationURI="popup:#TextEditorContext?after=additions">
         	<command commandId="br.unb.cic.obron.ide.ui.handler.InterpreterHandler"  style="push">
+            	<visibleWhen checkEnabled="false">
+                   <reference definitionId="br.unb.cic.obron.ide.Oberon.Editor.opened">
+                   </reference>
+               </visibleWhen>
+        	</command>
+    	</menuContribution>
+    	
+    	<!-- verificador de tipos -->
+    	<menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+	        <command  commandId="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler"
+	            style="push">
+	            <visibleWhen checkEnabled="false">
+	            	<iterate>
+	       				<adapt type="org.eclipse.core.resources.IResource">
+	          				<test property="org.eclipse.core.resources.name" value="*.oberon"/>
+	       				</adapt>
+	    			</iterate>
+	            </visibleWhen>
+	        </command>
+    	</menuContribution>
+    	<menuContribution locationURI="popup:#TextEditorContext?after=additions">
+        	<command commandId="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler"  style="push">
             	<visibleWhen checkEnabled="false">
                    <reference definitionId="br.unb.cic.obron.ide.Oberon.Editor.opened">
                    </reference>
