@@ -59,8 +59,8 @@
      	</handler>
      	<!-- verificador de tipos -->
      	<handler
-           class="br.unb.cic.obron.ide.ui.OberonExecutableExtensionFactory:br.unb.cic.obron.ide.ui.handler.TypeChecker"
-           commandId="br.unb.cic.obron.ide.ui.handler.TypeChecker">
+           class="br.unb.cic.obron.ide.ui.OberonExecutableExtensionFactory:br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler"
+           commandId="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler">
      	</handler>
      	<!-- add new handlers here--> 
 	</extension>
@@ -142,7 +142,7 @@
         
         <!-- verificador de tipos -->
         <command name="Type Checker"
-              id="br.unb.cic.obron.ide.ui.handler.TypeChecker">
+              id="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler">
         </command>
 		<!-- copy qualified name -->
 		<command
@@ -183,7 +183,7 @@
     	
     	<!-- verificador de tipos -->
     	<menuContribution locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
-	        <command  commandId="br.unb.cic.obron.ide.ui.handler.TypeChecker"
+	        <command  commandId="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler"
 	            style="push">
 	            <visibleWhen checkEnabled="false">
 	            	<iterate>
@@ -195,7 +195,7 @@
 	        </command>
     	</menuContribution>
     	<menuContribution locationURI="popup:#TextEditorContext?after=additions">
-        	<command commandId="br.unb.cic.obron.ide.ui.handler.TypeChecker"  style="push">
+        	<command commandId="br.unb.cic.obron.ide.ui.handler.TypeCheckerHandler"  style="push">
             	<visibleWhen checkEnabled="false">
                    <reference definitionId="br.unb.cic.obron.ide.Oberon.Editor.opened">
                    </reference>
