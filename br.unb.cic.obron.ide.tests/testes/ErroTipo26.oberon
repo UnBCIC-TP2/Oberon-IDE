@@ -1,0 +1,15 @@
+MODULE SimpleModule;
+
+VAR
+  y, x : BOOLEAN;
+
+BEGIN
+
+  y := False;
+  x := y + 10;
+
+  write(x)
+
+END
+
+END SimpleModule.

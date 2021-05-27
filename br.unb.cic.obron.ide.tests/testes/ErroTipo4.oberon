@@ -1,0 +1,16 @@
+MODULE SimpleModule;
+
+VAR
+    x : INTEGER;
+    y : BOOLEAN;
+BEGIN
+    x := 13;
+    IF (x < 10) THEN
+        y := x / 20
+    ELSIF (x > 10) THEN
+        y := x / 30
+    END;
+    write(y)
+END
+
+END SimpleModule.

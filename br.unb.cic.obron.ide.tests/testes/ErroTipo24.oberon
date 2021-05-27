@@ -1,0 +1,11 @@
+MODULE SimpleModule;
+
+BEGIN
+
+  y := 5;
+
+  write(y)
+
+END
+
+END SimpleModule.

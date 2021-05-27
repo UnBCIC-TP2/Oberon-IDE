@@ -1,0 +1,20 @@
+MODULE SimpleModule;
+
+VAR
+    y : INTEGER;
+    z : BOOLEAN;
+
+BEGIN
+    readInt(x);
+    z := True;
+
+    FOR y := x TO y < z DO
+        y := y * y
+
+    END;
+    
+    write(y)
+    
+END
+
+END SimpleModule.

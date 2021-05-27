@@ -6,6 +6,7 @@ package br.unb.cic.obron.ide.generator;
 import br.unb.cic.oberon.ast.OberonModule;
 import br.unb.cic.oberon.ast.Statement;
 import br.unb.cic.oberon.codegen.PaigesBasedGenerator;
+import br.unb.cic.oberon.interpreter.Interpreter;
 import br.unb.cic.oberon.parser.ScalaParser;
 import br.unb.cic.oberon.tc.TypeChecker;
 import java.nio.file.Files;
@@ -18,15 +19,9 @@ import org.eclipse.xtext.generator.AbstractGenerator;
 import org.eclipse.xtext.generator.IFileSystemAccess2;
 import org.eclipse.xtext.generator.IGeneratorContext;
 import org.eclipse.xtext.xbase.lib.Exceptions;
-import org.eclipse.xtext.xbase.lib.InputOutput;
 import scala.Tuple2;
 import scala.collection.immutable.List;
 
-/**
- * Generates code from your model files on save.
- * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
- */
 @SuppressWarnings("all")
 public class OberonGenerator extends AbstractGenerator {
   /**
@@ -45,7 +40,7 @@ public class OberonGenerator extends AbstractGenerator {
         final String content = String.join("\n", Files.readAllLines(path));
         final OberonModule module = ScalaParser.parse(content);
         final PaigesBasedGenerator codeGenerator = new PaigesBasedGenerator(3);
-        InputOutput.<String>println(codeGenerator.generateCode(module));
+        fsa.generateFile(path.getFileName().toString().replace(".oberon", ".c"), codeGenerator.generateCode(module));
       }
     } catch (Throwable _e) {
       throw Exceptions.sneakyThrow(_e);
@@ -61,5 +56,16 @@ public class OberonGenerator extends AbstractGenerator {
     final OberonModule module = ScalaParser.parse(content);
     final TypeChecker tc = new TypeChecker();
     return tc.visit(module);
+  }
+  
+  /**
+   * Executes the interpreter on a Oberon module.
+   * 
+   * @arg content The string content of an Oberon module.
+   */
+  public void interpreter(final String content) {
+    final OberonModule module = ScalaParser.parse(content);
+    final Interpreter i = new Interpreter();
+    i.visit(module);
   }
 }

@@ -17,12 +17,8 @@ import br.unb.cic.oberon.tc.TypeChecker
 import scala.collection.immutable.List
 import scala.Tuple2
 import br.unb.cic.oberon.ast.Statement
+import br.unb.cic.oberon.interpreter.Interpreter
 
-/**
- * Generates code from your model files on save.
- * 
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#code-generation
- */
 class OberonGenerator extends AbstractGenerator {
 	
    /**
@@ -31,14 +27,13 @@ class OberonGenerator extends AbstractGenerator {
 	override void doGenerate(Resource resource, IFileSystemAccess2 fsa, IGeneratorContext context) {
 		if(resource.URI.isPlatform) {
 			val file = ResourcesPlugin.workspace.root.getFile(new Path(resource.URI.toPlatformString(true))).rawLocation.toOSString;
-			val path = Paths.get(file)
+			val path = Paths.get(file)			
 			val content = String.join("\n", Files.readAllLines(path))
 			val module = ScalaParser.parse(content)
-			val codeGenerator = new PaigesBasedGenerator(3)
+			val codeGenerator = new PaigesBasedGenerator(3)	
 			
-			//TODO: output the generated code to a file.
-			
-			println(codeGenerator.generateCode(module))
+			fsa.generateFile(path.fileName.toString.replace(".oberon", ".c"), codeGenerator.generateCode(module))
+								
 		}
 	}
 	
@@ -53,5 +48,18 @@ class OberonGenerator extends AbstractGenerator {
 		val tc = new TypeChecker() 
 		
 		return tc.visit(module)
+	}
+	
+	/**
+	 * Executes the interpreter on a Oberon module. 
+	 * 
+	 * @arg content The string content of an Oberon module.   
+	 */
+	
+	def void interpreter (String content) {
+		val module = ScalaParser.parse(content)
+		val i = new Interpreter()
+		i.visit(module)	
+		
 	}
 }
